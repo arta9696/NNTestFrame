@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace NNTestFrame.UnalifeForms
 {
-    internal class TemplateFood : IEatable
+    public class TemplateFood : IEatable
     {
         protected Vector3 position = Vector3.Zero;
         public int X => (int)position.X;

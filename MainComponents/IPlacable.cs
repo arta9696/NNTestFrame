@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NNTestFrame.MainComponents
 {
-    internal interface IPlacable
+    public interface IPlacable
     {
         int X { get; }
         int Y { get; }

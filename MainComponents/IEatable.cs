@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NNTestFrame.MainComponents
 {
-    internal interface IEatable: IPlacable
+    public interface IEatable: IPlacable
     {
         public Dictionary<string, double> Nutrition { get; }
     }

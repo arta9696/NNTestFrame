@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace NNTestFrame.LifeForms
 {
-    internal class CellularLife : Living, IMovable
+    public class CellularLife : Living, IMovable
     {
         TemplateFood? nearestFood;
         double cellRadius = 5;

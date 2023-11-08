@@ -9,10 +9,10 @@ using NNTestFrame.LivingComponents;
 
 namespace NNTestFrame.MainComponents
 {
-    internal abstract class Living : IPlacable
+    public abstract class Living : IPlacable
     {
         //Behavior
-        protected Chromosome chromosome = new Chromosome();
+        internal Chromosome chromosome = new Chromosome();
         protected int rectionTimeMilliseconds;
 
         protected Living(int rectionTimeMilliseconds)

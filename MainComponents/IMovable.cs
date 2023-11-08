@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NNTestFrame.MainComponents
 {
-    internal interface IMovable
+    public interface IMovable
     {
         public void Move(Vector3 deltaPosition);
     }
