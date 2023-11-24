@@ -8,6 +8,6 @@ namespace NNTestFrame.MainComponents
 {
     public interface IEatable: IPlacable
     {
-        public Dictionary<string, double> Nutrition { get; }
+        public Dictionary<string, float> Nutrition { get; }
     }
 }

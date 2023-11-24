@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace NNTestFrame.LivingComponents
 {
-    internal class Chromosome
+    public class Chromosome
     {
-        public double[] Chromo { get; }
+        public float[] Chromo { get; }
 
-        public Chromosome(params double[] chromodata)
+        public Chromosome(params float[] chromodata)
         {
             Chromo = chromodata;
         }

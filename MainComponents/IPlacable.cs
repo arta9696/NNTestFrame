@@ -11,6 +11,7 @@ namespace NNTestFrame.MainComponents
         int X { get; }
         int Y { get; }
         int Z { get; }
-        public double Distance(IPlacable obj);
+        public float Distance(IPlacable obj);
+        public IPlacable FindNearest(IPlacable[] placables);
     }
 }

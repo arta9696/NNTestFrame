@@ -14,18 +14,33 @@ namespace NNTestFrame.UnalifeForms
         public int X => (int)position.X;
         public int Y => (int)position.Y;
         public int Z => (int)position.Z;
-        public double Distance(IPlacable obj)
+        public float Distance(IPlacable obj)
         {
-            return Math.Sqrt(Math.Pow(X - obj.X, 2) + Math.Pow(Y - obj.Y, 2) + Math.Pow(Z - obj.Z, 2));
+            return (float)Math.Sqrt(Math.Pow(X - obj.X, 2) + Math.Pow(Y - obj.Y, 2) + Math.Pow(Z - obj.Z, 2));
         }
+
+        public IPlacable FindNearest(IPlacable[] placables)
+        {
+            IPlacable nearest = null;
+            float distance = 0;
+            foreach (var placable in placables)
+            {
+                if(nearest is null || distance > Distance(placable))
+                {
+                    nearest = placable;
+                    distance = Distance(placable);
+                }
+            }
+            return nearest;
+        }
+
         public Vector3 Position { get { return position; } }
 
-        public Dictionary<string, double> Nutrition => new Dictionary<string, double>();
+        public Dictionary<string, float> Nutrition => new Dictionary<string, float>();
 
-        public TemplateFood(Vector3 position, double callories)
+        public TemplateFood(Vector3 position)
         {
             this.position = position;
-            Nutrition.Add("Callories", callories);
         }
     }
 }

@@ -12,16 +12,11 @@ namespace NNTestFrame.MainComponents
     public abstract class Living : IPlacable
     {
         //Behavior
-        internal Chromosome chromosome = new Chromosome();
-        protected int rectionTimeMilliseconds;
+        protected Chromosome chromosome;
 
-        protected Living(int rectionTimeMilliseconds)
+        public Living(Chromosome chromosome)
         {
-            this.rectionTimeMilliseconds = rectionTimeMilliseconds;
-            reactionTimer = new Timer(RunningReactions, null, 100, rectionTimeMilliseconds);
-        }
-        protected Living() : this(1000)
-        {
+            this.chromosome = chromosome;
         }
 
         //Physical parameters
@@ -29,51 +24,33 @@ namespace NNTestFrame.MainComponents
         public int X => (int)position.X;
         public int Y => (int)position.Y;
         public int Z => (int)position.Z;
-        public double Distance(IPlacable obj)
+        public float Distance(IPlacable obj)
         {
-            return Math.Sqrt(Math.Pow(X - obj.X, 2) + Math.Pow(Y - obj.Y, 2) + Math.Pow(Z - obj.Z, 2));
+            return (float)Math.Sqrt(Math.Pow(X - obj.X, 2) + Math.Pow(Y - obj.Y, 2) + Math.Pow(Z - obj.Z, 2));
+        }
+        public IPlacable FindNearest(IPlacable[] placables)
+        {
+            IPlacable nearest = null;
+            float distance = 0;
+            foreach (var placable in placables)
+            {
+                if (nearest is null || distance > Distance(placable))
+                {
+                    nearest = placable;
+                    distance = Distance(placable);
+                }
+            }
+            return nearest;
         }
 
         //Reproduction
         public abstract Living Reproduction(params Living[] others);
 
-
         //Reaction
-        protected Dictionary<Type, Action<IPlacable>> stimulusReactions = new Dictionary<Type, Action<IPlacable>>();
-
-        protected Dictionary<string, Action<int>> conditionReactions = new Dictionary<string, Action<int>>();
-        private Dictionary<string, Action<int>> currentlyRunningConditionReactions = new Dictionary<string, Action<int>>();
-        private readonly Timer reactionTimer;
-
-        private void RunningReactions(object? state)
-        {
-            var actions = currentlyRunningConditionReactions.Values.ToArray();
-            foreach (var action in actions)
-            {
-                action.Invoke(rectionTimeMilliseconds);
-            }
-        }
-        protected void StartConditionReaction(string condition)
-        {
-            if (conditionReactions.ContainsKey(condition))
-            {
-                if (currentlyRunningConditionReactions.ContainsKey(condition))
-                {
-                    currentlyRunningConditionReactions[condition] = conditionReactions[condition];
-                }
-                else
-                {
-                    currentlyRunningConditionReactions.Add(condition, conditionReactions[condition]);
-                }
-            }
-        }
-        protected void StopConditionReaction(string condition)
-        {
-            currentlyRunningConditionReactions.Remove(condition);
-        }
-
+        public abstract void ISee(Dictionary<string, object> objects_dictionary);
+        public abstract Dictionary<string, object> IThink();
 
         //Consume
-        protected abstract void Consume(IEatable food);
+        public abstract void Consume(IEatable food);
     }
 }
